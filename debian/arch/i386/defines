@@ -1,0 +1,3 @@
+[base]
+flavours:
+xen-arch: x86_32

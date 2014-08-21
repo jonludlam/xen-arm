@@ -1,0 +1,34 @@
+Index: xen-4.4.0~rc3+20140210/qemu/xen-hooks.mak
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/qemu/xen-hooks.mak	2014-02-10 12:53:54.058045822 +0100
++++ xen-4.4.0~rc3+20140210/qemu/xen-hooks.mak	2014-02-10 12:56:25.594786651 +0100
+@@ -20,7 +20,7 @@ CFLAGS += $(CMDLINE_CFLAGS)
+ LIBS += -L$(XEN_ROOT)/tools/libxc -lxenctrl -lxenguest
+ LIBS += -L$(XEN_ROOT)/tools/xenstore -lxenstore
+ 
+-LDFLAGS := $(CFLAGS) $(LDFLAGS)
++LDFLAGS := $(CFLAGS) $(LDFLAGS) -Wl,-rpath,'$${ORIGIN}/../lib'
+ 
+ OBJS += piix4acpi.o
+ OBJS += xenstore.o
+@@ -81,7 +81,6 @@ OBJS := $(filter-out $(BAD_OBJS), $(OBJS
+ 
+ EXESUF=-xen
+ 
+-datadir := $(subst qemu,xen/qemu,$(datadir))
+ docdir :=  $(subst qemu,xen/qemu,$(docdir))
+ mandir :=  $(subst share/man,share/xen/man,$(mandir))
+ 
+Index: xen-4.4.0~rc3+20140210/qemu/xen-setup
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/qemu/xen-setup	2014-02-10 12:53:54.086045960 +0100
++++ xen-4.4.0~rc3+20140210/qemu/xen-setup	2014-02-10 12:56:25.594786651 +0100
+@@ -28,7 +28,7 @@ ln -sf ${QEMU_ROOT:-..}/Makefile.target
+ ln -sf ${QEMU_ROOT:-..}/xen-config.mak $target/config.mak
+ cat ${QEMU_ROOT:-.}/xen-config-host.mak >>config-host.mak
+ 
+-sed -e 's,qemu,xen/qemu,' config-host.h >config-host.h.new
++cat config-host.h >config-host.h.new
+ echo "#define DEFAULT_NETWORK_SCRIPT      \"${XEN_SCRIPT_DIR}/qemu-ifup\"" >>config-host.h.new
+ echo "#define DEFAULT_NETWORK_DOWN_SCRIPT \"${XEN_SCRIPT_DIR}/qemu-ifdown\"" >>config-host.h.new
+ echo '#include "xen-config-host.h"' >>config-host.h.new

@@ -1,0 +1,23 @@
+From: Stefan Bader <stefan.bader@canonical.com>
+Date: Wed, 05 Mar 2014 17:44:11 +0100
+Subject: tools/ocaml: Disable test target
+
+This currently breaks the build because some xenlight symbols are
+not found. Might be related to some older ocaml build fix. Before
+4.4 libxenlight likely not linked to from ocaml.
+
+Signed-off-by: Stefan Bader <stefan.bader@canonical.com>
+
+Index: xen-4.4.0/tools/ocaml/Makefile
+===================================================================
+--- xen-4.4.0.orig/tools/ocaml/Makefile	2014-02-24 17:28:17.000000000 +0100
++++ xen-4.4.0/tools/ocaml/Makefile	2014-03-05 17:43:30.912352382 +0100
+@@ -1,7 +1,7 @@
+ XEN_ROOT = $(CURDIR)/../..
+ include $(XEN_ROOT)/tools/Rules.mk
+ 
+-SUBDIRS_PROGRAMS = xenstored test
++SUBDIRS_PROGRAMS = xenstored
+ 
+ SUBDIRS = libs $(SUBDIRS_PROGRAMS)
+ 

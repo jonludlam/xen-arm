@@ -1,0 +1,27 @@
+From: Stefan Bader <stefan.bader@canonical.com>
+Date: Fri, 02 Aug 2013 16:47:22 +0100
+Subject: tools: Disable ocaml build on armhf
+
+Problem right now is that the ocaml library seems to have hard
+dependencies on some cpuid related functions which only exist
+on x86.
+Until that is sorted out upstream (apparently when they build
+for Arm they have had no ocaml package installed), prevent
+the build. This also needs some modifications in debian/rules.real
+but those won't show up in the patch.
+
+Signed-off-by: Stefan Bader <stefan.bader@canonical.com>
+
+--- a/tools/Makefile
++++ b/tools/Makefile
+@@ -42,8 +42,10 @@
+ ifeq ($(XEN_COMPILE_ARCH),$(XEN_TARGET_ARCH))
+ SUBDIRS-y += python
+ SUBDIRS-y += pygrub
++ifeq ($(filter arm32 arm64,$(XEN_COMPILE_ARCH)),)
+ SUBDIRS-$(OCAML_TOOLS) += ocaml
+ endif
++endif
+ 
+ ifeq ($(CONFIG_RUMP),y)
+ SUBDIRS-y := include libxc xenstore

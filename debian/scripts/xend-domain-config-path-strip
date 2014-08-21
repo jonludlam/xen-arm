@@ -1,0 +1,30 @@
+#!/bin/sh -e
+CONFDIR=/var/lib/xend/domains
+
+if [ $(id -u) -ne 0 ]; then
+	echo "Must be called as root" >&2
+	exit 1
+fi
+
+for CFG in $(find $CONFDIR -type f); do
+	awk '
+		/\(loader/ && /\/usr\/lib\/xen-/{
+			sub(/\/usr\/lib\/xen-.*\/boot\//, "")
+			print
+			next
+		}
+		/\(device_model/ && /\/usr\/lib\/xen-/{
+			sub(/\/usr\/lib\/xen-.*\/bin\//, "")
+			print
+			next
+		}
+		{
+			print
+		}
+	' $CFG >/tmp/xend-domain.$$
+	if ! diff -q $CFG /tmp/xend-domain.$$ >/dev/null; then
+		echo "Updating $(basename $(dirname $CFG))"
+		cat /tmp/xend-domain.$$ >$CFG
+	fi
+	rm /tmp/xend-domain.$$
+done

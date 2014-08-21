@@ -1,0 +1,29 @@
+From: Stefan Bader <stefan.bader@canonical.com>
+Date: Mon, 15 Jul 2013 14:29:52 +0200
+Subject: Change qemu-system-i386 paths used to point to the default one
+
+Signed-off-by: Stefan Bader <stefan.bader@canonical.com>
+
+Index: xen-4.4.0~rc3+20140210/tools/hotplug/Linux/init.d/sysconfig.xencommons
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/hotplug/Linux/init.d/sysconfig.xencommons	2014-02-10 12:53:53.690044019 +0100
++++ xen-4.4.0~rc3+20140210/tools/hotplug/Linux/init.d/sysconfig.xencommons	2014-02-10 12:56:27.498795960 +0100
+@@ -30,4 +30,4 @@
+ #XENBACKENDD_DEBUG=[yes|on|1]
+ 
+ # qemu path
+-#QEMU_XEN=/usr/lib/xen/bin/qemu-system-i386
++#QEMU_XEN=/usr/bin/qemu-system-i386
+Index: xen-4.4.0~rc3+20140210/tools/libxl/libxl_dm.c
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/libxl/libxl_dm.c	2014-02-10 12:53:53.710044122 +0100
++++ xen-4.4.0~rc3+20140210/tools/libxl/libxl_dm.c	2014-02-10 12:56:27.498795960 +0100
+@@ -38,7 +38,7 @@ static const char *qemu_xen_path(libxl__
+ #ifdef QEMU_XEN_PATH
+     return QEMU_XEN_PATH;
+ #else
+-    return libxl__abs_path(gc, "qemu-system-i386", libxl__libexec_path());
++    return libxl__abs_path(gc, "qemu-system-i386", "/usr/bin");
+ #endif
+ }
+ 

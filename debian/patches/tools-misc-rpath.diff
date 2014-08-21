@@ -1,0 +1,13 @@
+Index: xen-4.4.0~rc3+20140210/tools/misc/Makefile
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/misc/Makefile	2014-02-10 12:56:03.094676653 +0100
++++ xen-4.4.0~rc3+20140210/tools/misc/Makefile	2014-02-10 12:56:03.794680069 +0100
+@@ -32,6 +32,8 @@ INSTALL_PRIVBIN := $(INSTALL_PRIVBIN-y)
+ # Include configure output (config.h) to headers search path
+ CFLAGS += -I$(XEN_ROOT)/tools
+ 
++APPEND_LDFLAGS += $(call LDFLAGS_RPATH,../lib)
++
+ .PHONY: all
+ all: build
+ 

@@ -1,0 +1,12 @@
+Index: xen-4.4.0~rc3+20140210/tools/libfsimage/Rules.mk
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/libfsimage/Rules.mk	2014-02-10 12:56:00.898665912 +0100
++++ xen-4.4.0~rc3+20140210/tools/libfsimage/Rules.mk	2014-02-10 12:56:01.642669551 +0100
+@@ -3,6 +3,7 @@ include $(XEN_ROOT)/tools/Rules.mk
+ CFLAGS += -Wno-unknown-pragmas -I$(XEN_ROOT)/tools/libfsimage/common/ -DFSIMAGE_FSDIR=\"$(FSDIR)\"
+ CFLAGS += -Werror -D_GNU_SOURCE
+ LDFLAGS += -L../common/
++LDFLAGS += $(call LDFLAGS_RPATH,../..)
+ 
+ PIC_OBJS := $(patsubst %.c,%.opic,$(LIB_SRCS-y))
+ 

@@ -1,0 +1,11 @@
+--- a/Config.mk
++++ b/Config.mk
+@@ -254,7 +254,7 @@
+ # Thu May 22 16:59:16 2014 -0400
+ # python3 fixes for vgabios and csm builds.
+ 
+-ETHERBOOT_NICS ?= rtl8139 8086100e
++ETHERBOOT_NICS ?= rtl8139 e1000_82540
+ 
+ 
+ QEMU_TRADITIONAL_REVISION ?= d0395cc49b2ec6d1723c01f1daf2394b9264ca29

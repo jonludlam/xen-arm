@@ -1,0 +1,14 @@
+Index: xen-4.4.0~rc3+20140210/tools/xenstat/xentop/Makefile
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/xenstat/xentop/Makefile	2014-02-10 12:56:09.582708372 +0100
++++ xen-4.4.0~rc3+20140210/tools/xenstat/xentop/Makefile	2014-02-10 12:56:10.330712027 +0100
+@@ -19,7 +19,9 @@ all install xentop:
+ else
+ 
+ CFLAGS += -DGCC_PRINTF -Wall -Werror $(CFLAGS_libxenstat)
++LDFLAGS += $(call LDFLAGS_RPATH,../lib)
+ LDLIBS += $(LDLIBS_libxenstat) $(CURSES_LIBS) $(SOCKET_LIBS)
++LDLIBS += $(LDLIBS_libxenctrl) $(LDLIBS_libxenstore)
+ CFLAGS += -DHOST_$(XEN_OS)
+ 
+ # Include configure output (config.h) to headers search path

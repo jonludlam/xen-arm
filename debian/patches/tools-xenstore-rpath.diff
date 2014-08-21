@@ -1,0 +1,11 @@
+--- a/tools/xenstore/Makefile
++++ b/tools/xenstore/Makefile
+@@ -9,6 +9,8 @@
+ CFLAGS += -I$(XEN_ROOT)/tools/
+ CFLAGS += $(CFLAGS_libxenctrl)
+ 
++LDFLAGS_libxenctrl += $(call LDFLAGS_RPATH,../lib)
++
+ CLIENTS := xenstore-exists xenstore-list xenstore-read xenstore-rm xenstore-chmod
+ CLIENTS += xenstore-write xenstore-ls xenstore-watch
+ 

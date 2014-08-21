@@ -1,0 +1,33 @@
+Description: Use etherboot images from kvm-ipxe
+ Since we do not seem to package qemu-ipxe (as Debian does) we
+ used to build depend on ipxe. But kvm-ipxe seems to be closer
+ to what Debian does as it only contains a small subset of all
+ the rom files. And Xen uses only two of them.
+ This patch changes the Xen code to look for the filenames
+ that kvm-ipxe uses.
+Forwarded: not-needed
+Origin: vendor, created on merge
+Author: Stefan Bader <stefan.bader@canonical.com>
+
+--- a/Config.mk
++++ b/Config.mk
+@@ -254,7 +254,7 @@
+ # Thu May 22 16:59:16 2014 -0400
+ # python3 fixes for vgabios and csm builds.
+ 
+-ETHERBOOT_NICS ?= rtl8139 e1000_82540
++ETHERBOOT_NICS ?= rtl8139 e1000
+ 
+ 
+ QEMU_TRADITIONAL_REVISION ?= d0395cc49b2ec6d1723c01f1daf2394b9264ca29
+--- a/tools/firmware/hvmloader/Makefile
++++ b/tools/firmware/hvmloader/Makefile
+@@ -49,7 +49,7 @@
+ else
+ CIRRUSVGA_ROM := ../vgabios/VGABIOS-lgpl-latest.cirrus.bin
+ endif
+-ETHERBOOT_ROMS := $(addprefix /usr/lib/ipxe/, $(addsuffix .rom, $(ETHERBOOT_NICS)))
++ETHERBOOT_ROMS := $(addprefix /usr/share/qemu/pxe-, $(addsuffix .rom, $(ETHERBOOT_NICS)))
+ endif
+ 
+ ROMS := 

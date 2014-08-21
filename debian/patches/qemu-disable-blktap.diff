@@ -1,0 +1,95 @@
+qemu: Disable blktap build
+
+There is no upstream version of this (only Citrix has something which
+is not going to be upstream for XenServer).
+Index: xen-4.4.0~rc3+20140210/qemu/Makefile
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/qemu/Makefile	2014-02-10 12:53:53.914045123 +0100
++++ xen-4.4.0~rc3+20140210/qemu/Makefile	2014-02-10 12:56:26.314790166 +0100
+@@ -47,13 +47,9 @@ $(filter %-user,$(SUBDIR_RULES)): libqem
+ recurse-all: $(SUBDIR_RULES)
+ 
+ CPPFLAGS += -I$(XEN_ROOT)/tools/libxc
+-CPPFLAGS += -I$(XEN_ROOT)/tools/blktap/lib
+ CPPFLAGS += -I$(XEN_ROOT)/tools/xenstore
+ CPPFLAGS += -I$(XEN_ROOT)/tools/include
+ 
+-tapdisk-ioemu: tapdisk-ioemu.c cutils.c block.c block-raw.c block-cow.c block-qcow.c aes.c block-vmdk.c block-cloop.c block-dmg.c block-bochs.c block-vpc.c block-vvfat.c block-qcow2.c hw/xen_blktap.c osdep.c
+-	$(CC) -DQEMU_TOOL $(CFLAGS) $(CPPFLAGS) $(BASE_CFLAGS) $(LDFLAGS) $(BASE_LDFLAGS) -o $@ $^ -lz $(LIBS)
+-
+ #######################################################################
+ # BLOCK_OBJS is code used by both qemu system emulation and qemu-img
+ 
+Index: xen-4.4.0~rc3+20140210/qemu/configure
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/qemu/configure	2014-02-10 12:53:53.862044869 +0100
++++ xen-4.4.0~rc3+20140210/qemu/configure	2014-02-10 12:56:26.314790166 +0100
+@@ -185,9 +185,10 @@ bluez="yes"
+ kvm="yes"
+ kerneldir=""
+ aix="no"
+-blobs="yes"
++blobs="no"
+ fdt="yes"
+ sdl_x11="no"
++brlapi="no"
+ 
+ # OS specific
+ if check_define __linux__ ; then
+Index: xen-4.4.0~rc3+20140210/qemu/hw/xen_machine_pv.c
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/qemu/hw/xen_machine_pv.c	2014-02-10 12:53:53.894045021 +0100
++++ xen-4.4.0~rc3+20140210/qemu/hw/xen_machine_pv.c	2014-02-10 12:56:26.318790190 +0100
+@@ -29,10 +29,6 @@
+ #include "xen_backend.h"
+ #include "qemu-xen.h"
+ 
+-#if defined(CONFIG_BLKTAP1) && !defined(CONFIG_STUBDOM)
+-#include <hw/xen_blktap.h>
+-#endif
+-
+ uint32_t xen_domid;
+ enum xen_mode xen_mode = XEN_EMULATE;
+ 
+@@ -47,11 +43,6 @@ static void xen_init_pv(ram_addr_t ram_s
+     CPUState *env;
+     uint32_t domid_target;
+ 
+-#if defined(CONFIG_BLKTAP1) && !defined(CONFIG_STUBDOM) && !defined(__NetBSD__)
+-    /* Initialize tapdisk client */
+-    init_blktap();
+-#endif
+-
+     /* Initialize a dummy CPU */
+     if (cpu_model == NULL) {
+ #ifdef TARGET_X86_64
+Index: xen-4.4.0~rc3+20140210/qemu/xen-config-host.h
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/qemu/xen-config-host.h	2014-02-10 12:53:53.938045237 +0100
++++ xen-4.4.0~rc3+20140210/qemu/xen-config-host.h	2014-02-10 12:56:26.318790190 +0100
+@@ -18,9 +18,6 @@ extern int domid, domid_backend;
+ 
+ #include "xenctrl.h"
+ #include "xenstore.h"
+-#if defined(CONFIG_BLKTAP1) && !defined(CONFIG_STUBDOM) && !defined(__NetBSD__)
+-#include "blktaplib.h"
+-#endif
+ 
+ #define BIOS_SIZE ((256 + 64) * 1024)
+ 
+Index: xen-4.4.0~rc3+20140210/qemu/xen-hooks.mak
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/qemu/xen-hooks.mak	2014-02-10 12:56:25.594786651 +0100
++++ xen-4.4.0~rc3+20140210/qemu/xen-hooks.mak	2014-02-10 12:56:26.318790190 +0100
+@@ -47,11 +47,6 @@ CONFIG_AUDIO=
+ OBJS += xenfbfront.o
+ else
+ ifndef CONFIG_NetBSD
+-ifneq ($(CONFIG_BLKTAP1),n)
+-CPPFLAGS+= -DCONFIG_BLKTAP1 -I$(XEN_ROOT)/tools/blktap/lib
+-LIBS += -L$(XEN_ROOT)/tools/blktap/lib -lblktap
+-OBJS += xen_blktap.o
+-endif
+ OBJS += tpm_tis.o
+ endif
+ endif

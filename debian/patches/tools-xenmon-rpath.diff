@@ -1,0 +1,12 @@
+Index: xen-4.4.0~rc3+20140210/tools/xenmon/Makefile
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/xenmon/Makefile	2014-02-10 12:56:07.358697499 +0100
++++ xen-4.4.0~rc3+20140210/tools/xenmon/Makefile	2014-02-10 12:56:08.110701169 +0100
+@@ -16,6 +16,7 @@ include $(XEN_ROOT)/tools/Rules.mk
+ CFLAGS  += -Werror
+ CFLAGS  += $(CFLAGS_libxenctrl)
+ LDLIBS  += $(LDLIBS_libxenctrl)
++LDFLAGS += $(call LDFLAGS_RPATH,../lib)
+ 
+ SCRIPTS = xenmon.py
+ 

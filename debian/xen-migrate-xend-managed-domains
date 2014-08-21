@@ -1,0 +1,55 @@
+#!/bin/sh
+SRCDIR="/var/lib/xend/domains"
+TGTDIR="/etc/xen"
+
+if [ ! -d "$SRCDIR" ]; then
+	exit 0
+fi
+if [ -f /var/lib/xend/migration-done ]; then
+	exit 0
+fi
+
+XENPROC="/proc/xen/capabilities"
+if [ ! -f $XENPROC ] || [ "$(cat $XENPROC)" != "control_d" ]; then
+	if [ "$(find $SRCDIR -name config.sxp 2>/dev/null)" != "" ]; then
+		echo "---"
+		echo "--- INFO: Cannot migrate xend domains when not"
+		echo "---       running under Xen hypervisor!"
+		echo "---"
+		echo "Boot into the Xen hypervisor and run"
+		echo "$0 inside dom0."
+	fi >&2
+	exit 0
+fi
+
+PATH="$(/usr/lib/xen-common/bin/xen-dir)/bin:$PATH"
+export PATH
+
+N=0
+LOG=""
+for DOMUUID in $(ls -1 "$SRCDIR"); do
+	CFGFILE="$SRCDIR/$DOMUUID/config.sxp"
+	if [ -f "$CFGFILE" ]; then
+		LOG="$LOG\n$(xen-sxp2xm $CFGFILE $TGTDIR)"
+		if [ $? -eq 0 ]; then
+			N=$(($N + 1))
+		fi
+	fi
+done
+
+if [ $N -gt 0 ]; then
+	echo "---"
+	echo "--- INFO"
+	echo "---"
+	echo "The xm toolstack is deprecated and the default was changed to"
+	echo "xl. However the xl toolstack does not support the managed"
+	echo "domains of xend. $N domain(s) were converted into the xen-xm"
+	echo "format and can be found under /etc/xen/<domain name>.cfg."
+	echo "The conversion might be incomplete. Please make sure to review"
+	echo "the result."
+	echo "Note that those might only be meaningful if using the xl/xen"
+	echo "commands directly. Access through libvirt will get (or has"
+	echo "been) migrated separately."
+	echo "$LOG"
+	touch /var/lib/xend/migration-done
+fi >&2

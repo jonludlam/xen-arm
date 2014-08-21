@@ -1,0 +1,20 @@
+Index: xen-4.4.0~rc3+20140210/tools/examples/xend-config.sxp
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/examples/xend-config.sxp	2014-02-10 12:56:16.794743624 +0100
++++ xen-4.4.0~rc3+20140210/tools/examples/xend-config.sxp	2014-02-10 12:56:17.438746778 +0100
+@@ -62,7 +62,6 @@
+ #(xend-tcp-xmlrpc-server no)
+ #(xend-unix-xmlrpc-server yes)
+ #(xend-relocation-server no)
+-(xend-relocation-server yes)
+ #(xend-relocation-ssl-server no)
+ #(xend-udev-event-server no)
+ 
+@@ -126,7 +125,6 @@
+ #  (xend-relocation-hosts-allow '^localhost$ ^.*\\.example\\.org$')
+ #
+ #(xend-relocation-hosts-allow '')
+-(xend-relocation-hosts-allow '^localhost$ ^localhost\\.localdomain$')
+ 
+ # The limit (in kilobytes) on the size of the console buffer
+ #(console-limit 1024)

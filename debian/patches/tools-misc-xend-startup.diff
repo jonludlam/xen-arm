@@ -1,0 +1,37 @@
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/xend/xend
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/xend/xend	2014-02-10 12:56:03.094676653 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/xend/xend	2014-02-10 12:56:15.482737211 +0100
+@@ -71,13 +71,6 @@ def check_user():
+         hline()
+         raise CheckError("invalid user")
+ 
+-def start_daemon(daemon, *args):
+-    if os.fork() == 0:
+-        os.execvp(daemon, (daemon,) + args)
+-
+-def start_blktapctrl():
+-    start_daemon("blktapctrl", "")
+-
+ def main():
+     try:
+         check_logging()
+@@ -89,18 +82,14 @@ def main():
+     if not sys.argv[1:]:
+         print 'usage: %s {start|stop|reload|restart}' % sys.argv[0]
+     elif sys.argv[1] == 'start':
+-        if os.uname()[0] != "SunOS":
+-            start_blktapctrl()
+         return daemon.start()
+     elif sys.argv[1] == 'trace_start':
+-        start_blktapctrl()
+         return daemon.start(trace=1)
+     elif sys.argv[1] == 'stop':
+         return daemon.stop()
+     elif sys.argv[1] == 'reload':
+         return daemon.reloadConfig()
+     elif sys.argv[1] == 'restart':
+-        start_blktapctrl()
+         return daemon.stop() or daemon.start()
+     elif sys.argv[1] == 'status':
+         return daemon.status()

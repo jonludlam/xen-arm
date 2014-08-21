@@ -1,0 +1,41 @@
+From: Stefan Bader <stefan.bader@canonical.com>
+Date: Fri, 11 Apr 2014 16:31:44 +0200
+Subject: Enable build of arm64 / aarch64
+
+Beside of packaging changes config.guess needed an update and a block
+of defines seems to be already done in this file:
+  /usr/include/aarch64-linux-gnu/asm/ptrace.h
+I am only testing one and skip the whole block, which could be done
+better...
+
+Signed-off-by: Stefan Bader <stefan.bader@canonical.com>
+
+--- a/config.guess
++++ b/config.guess
+@@ -882,7 +882,7 @@
+ 	if test "$?" = 0 ; then LIBC="libc1" ; else LIBC="" ; fi
+ 	echo ${UNAME_MACHINE}-unknown-linux-gnu${LIBC}
+ 	exit ;;
+-    arm*:Linux:*:*)
++    arm*:Linux:*:*|aarch64:Linux:*:*)
+ 	eval $set_cc_for_build
+ 	if echo __ARM_EABI__ | $CC_FOR_BUILD -E - 2>/dev/null \
+ 	    | grep -q __ARM_EABI__
+--- a/xen/include/public/arch-arm.h
++++ b/xen/include/public/arch-arm.h
+@@ -342,6 +342,7 @@
+ 
+ /* 64 bit modes */
+ #define PSR_MODE_BIT  0x10 /* Set iff AArch32 */
++#ifndef PSR_MODE_EL3h      /* Already defined in .../asm/ptrace. */
+ #define PSR_MODE_EL3h 0x0d
+ #define PSR_MODE_EL3t 0x0c
+ #define PSR_MODE_EL2h 0x09
+@@ -349,6 +350,7 @@
+ #define PSR_MODE_EL1h 0x05
+ #define PSR_MODE_EL1t 0x04
+ #define PSR_MODE_EL0t 0x00
++#endif
+ 
+ #define PSR_GUEST32_INIT  (PSR_ABT_MASK|PSR_FIQ_MASK|PSR_IRQ_MASK|PSR_MODE_SVC)
+ #define PSR_GUEST64_INIT (PSR_ABT_MASK|PSR_FIQ_MASK|PSR_IRQ_MASK|PSR_MODE_EL1h)

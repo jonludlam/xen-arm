@@ -1,0 +1,151 @@
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/util/bugtool.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/util/bugtool.py	2014-02-10 12:53:54.838049632 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/util/bugtool.py	2014-02-10 12:56:21.282765569 +0100
+@@ -1,5 +1,3 @@
+-#!/usr/bin/env python
+-
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+ # License as published by the Free Software Foundation.
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/util/pci.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/util/pci.py	2014-02-10 12:53:54.818049544 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/util/pci.py	2014-02-10 12:56:21.282765569 +0100
+@@ -1,5 +1,3 @@
+-#!/usr/bin/env python
+-#
+ # PCI Device Information Class
+ # - Helps obtain information about which I/O resources a PCI device needs
+ #
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/util/vscsi_util.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/util/vscsi_util.py	2014-02-10 12:53:54.798049444 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/util/vscsi_util.py	2014-02-10 12:56:21.286765584 +0100
+@@ -1,4 +1,3 @@
+-#!/usr/bin/env python
+ #  -*- mode: python; -*-
+ 
+ #============================================================================
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendBase.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/xend/XendBase.py	2014-02-10 12:53:54.602048484 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendBase.py	2014-02-10 12:56:21.286765584 +0100
+@@ -1,4 +1,3 @@
+-#!/usr/bin/python
+ #============================================================================
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendClient.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/xend/XendClient.py	2014-02-10 12:53:54.666048792 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendClient.py	2014-02-10 12:56:21.286765584 +0100
+@@ -1,4 +1,3 @@
+-#!/usr/bin/env python
+ #============================================================================
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendLocalStorageRepo.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/xend/XendLocalStorageRepo.py	2014-02-10 12:53:54.622048578 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendLocalStorageRepo.py	2014-02-10 12:56:21.286765584 +0100
+@@ -1,4 +1,3 @@
+-#!/usr/bin/python
+ #============================================================================
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendQCoWStorageRepo.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/xend/XendQCoWStorageRepo.py	2014-02-10 12:53:54.702048974 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendQCoWStorageRepo.py	2014-02-10 12:56:21.286765584 +0100
+@@ -1,4 +1,3 @@
+-#!/usr/bin/python
+ #============================================================================
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendStorageRepository.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/xend/XendStorageRepository.py	2014-02-10 12:53:54.586048406 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendStorageRepository.py	2014-02-10 12:56:21.286765584 +0100
+@@ -1,4 +1,3 @@
+-#!/usr/bin/python
+ #============================================================================
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendVDI.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/xend/XendVDI.py	2014-02-10 12:53:54.774049327 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendVDI.py	2014-02-10 12:56:21.286765584 +0100
+@@ -1,4 +1,3 @@
+-#!/usr/bin/python
+ #============================================================================
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/xend/arch.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/xend/arch.py	2014-02-10 12:53:54.574048343 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/xend/arch.py	2014-02-10 12:56:21.286765584 +0100
+@@ -1,5 +1,3 @@
+-#!/usr/bin/env python
+-#
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+ # License as published by the Free Software Foundation.
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/xend/osdep.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/xend/osdep.py	2014-02-10 12:53:54.754049226 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/xend/osdep.py	2014-02-10 12:56:21.286765584 +0100
+@@ -1,5 +1,3 @@
+-#!/usr/bin/env python
+-#
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+ # License as published by the Free Software Foundation.
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/xend/sxp.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/xend/sxp.py	2014-02-10 12:53:54.650048722 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/xend/sxp.py	2014-02-10 12:56:21.290765608 +0100
+@@ -1,4 +1,3 @@
+-#!/usr/bin/env python
+ #============================================================================
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/xm/xenapi_create.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/xm/xenapi_create.py	2014-02-10 12:53:54.858049739 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/xm/xenapi_create.py	2014-02-10 12:56:21.290765608 +0100
+@@ -1,4 +1,3 @@
+-#!/usr/bin/python
+ #============================================================================
+ # This library is free software; you can redistribute it and/or
+ # modify it under the terms of version 2.1 of the GNU Lesser General Public
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/remus/save.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/remus/save.py	2014-02-10 12:53:54.542048192 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/remus/save.py	2014-02-10 12:56:21.290765608 +0100
+@@ -1,5 +1,3 @@
+-#!/usr/bin/env python
+-
+ import os, select, socket, threading, time, signal, xmlrpclib
+ 
+ from xen.xend.XendClient import server
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/remus/vm.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/remus/vm.py	2014-02-10 12:53:54.558048268 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/remus/vm.py	2014-02-10 12:56:21.290765608 +0100
+@@ -1,5 +1,3 @@
+-#!/usr/bin/env python
+-
+ import xmlrpclib
+ 
+ from xen.xend.XendClient import server
+Index: xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendSXPDev.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/python/xen/xend/XendSXPDev.py	2014-02-10 12:53:54.730049105 +0100
++++ xen-4.4.0~rc3+20140210/tools/python/xen/xend/XendSXPDev.py	2014-02-10 12:56:21.290765608 +0100
+@@ -1,5 +1,3 @@
+-#!/usr/bin/env python
+-#
+ # Helper functions for dealing with the sxp representation of devices
+ 
+ import types

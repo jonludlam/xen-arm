@@ -1,0 +1,31 @@
+Index: xen-4.4.0~rc3+20140210/tools/pygrub/src/pygrub
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/pygrub/src/pygrub	2014-02-10 12:53:57.034060369 +0100
++++ xen-4.4.0~rc3+20140210/tools/pygrub/src/pygrub	2014-02-10 12:56:04.486683459 +0100
+@@ -22,6 +22,8 @@ import xen.lowlevel.xc
+ import curses, _curses, curses.wrapper, curses.textpad, curses.ascii
+ import getopt
+ 
++sys.path.insert(1, sys.path[0] + '/../lib/python')
++
+ import fsimage
+ import grub.GrubConf
+ import grub.LiloConf
+Index: xen-4.4.0~rc3+20140210/tools/pygrub/setup.py
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/pygrub/setup.py	2014-02-10 12:53:57.050060447 +0100
++++ xen-4.4.0~rc3+20140210/tools/pygrub/setup.py	2014-02-10 12:56:04.486683459 +0100
+@@ -4,11 +4,13 @@ import os
+ import sys
+ 
+ extra_compile_args  = [ "-fno-strict-aliasing", "-Werror" ]
++extra_link_args = [ "-Wl,-rpath,${ORIGIN}/.." ]
+ 
+ XEN_ROOT = "../.."
+ 
+ fsimage = Extension("fsimage",
+     extra_compile_args = extra_compile_args,
++    extra_link_args = extra_link_args,
+     include_dirs = [ XEN_ROOT + "/tools/libfsimage/common/" ],
+     library_dirs = [ XEN_ROOT + "/tools/libfsimage/common/" ],
+     libraries = ["fsimage"],

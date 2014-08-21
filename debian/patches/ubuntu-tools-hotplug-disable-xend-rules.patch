@@ -1,0 +1,26 @@
+From: Stefan Bader <stefan.bader@canonical.com>
+Date: Tue, 17 Dec 2013 15:28:40 +0100
+Subject: [UBUNTU] Disable xend udev socket rules
+
+The udev version used in Ubuntu (from systemd) does not support
+piping messages into named sockets. Since this is not working
+anyway and only produces ugly messages, disable the rules for
+now.
+
+Note: Not meant for upstream which actually will deprecate xm/xend
+in the coming 4.4 release.
+
+Signed-off-by: Stefan Bader <stefan.bader@canonical.com>
+
+Index: xen-4.4.0~rc3+20140210/tools/hotplug/Linux/xend.rules
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/hotplug/Linux/xend.rules	2014-02-10 12:53:53.630043730 +0100
++++ xen-4.4.0~rc3+20140210/tools/hotplug/Linux/xend.rules	2014-02-10 12:56:28.030798554 +0100
+@@ -1,4 +1,4 @@
+-SUBSYSTEM=="pci", RUN+="socket:/org/xen/xend/udev_event"
+-SUBSYSTEM=="scsi", RUN+="socket:/org/xen/xend/udev_event"
+-SUBSYSTEM=="usb", RUN+="socket:/org/xen/xend/udev_event"
++#SUBSYSTEM=="pci", RUN+="socket:/org/xen/xend/udev_event"
++#SUBSYSTEM=="scsi", RUN+="socket:/org/xen/xend/udev_event"
++#SUBSYSTEM=="usb", RUN+="socket:/org/xen/xend/udev_event"
+ #SUBSYSTEM=="net", KERNEL!="vif[0-9]*.[0-9]*|tap[0-9]*.[0-9]*", RUN+="socket:/org/xen/xend/udev_event"

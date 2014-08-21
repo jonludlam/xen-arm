@@ -1,0 +1,16 @@
+Index: xen-4.4.0~rc3+20140210/tools/examples/xend-config.sxp
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/examples/xend-config.sxp	2014-02-10 12:53:55.558053158 +0100
++++ xen-4.4.0~rc3+20140210/tools/examples/xend-config.sxp	2014-02-10 12:56:16.794743624 +0100
+@@ -132,6 +132,11 @@
+ #(console-limit 1024)
+ 
+ ##
++# NOTE:
++# Please read /usr/share/doc/xen-utils-common/README.Debian for Debian specific
++# informations about the network setup.
++
++##
+ # To bridge network traffic, like this:
+ #
+ # dom0: ----------------- bridge -> real eth0 -> the network

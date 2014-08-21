@@ -1,0 +1,38 @@
+Index: xen-4.4.0~rc3+20140210/tools/libfsimage/Rules.mk
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/libfsimage/Rules.mk	2014-02-10 12:53:57.638063322 +0100
++++ xen-4.4.0~rc3+20140210/tools/libfsimage/Rules.mk	2014-02-10 12:56:00.898665912 +0100
+@@ -6,7 +6,7 @@ LDFLAGS += -L../common/
+ 
+ PIC_OBJS := $(patsubst %.c,%.opic,$(LIB_SRCS-y))
+ 
+-FSDIR = $(LIBDIR)/fs
++FSDIR = $(PRIVATE_LIBDIR)/fs
+ 
+ FSLIB = fsimage.so
+ 
+Index: xen-4.4.0~rc3+20140210/tools/libfsimage/common/Makefile
+===================================================================
+--- xen-4.4.0~rc3+20140210.orig/tools/libfsimage/common/Makefile	2014-02-10 12:55:55.710640548 +0100
++++ xen-4.4.0~rc3+20140210/tools/libfsimage/common/Makefile	2014-02-10 12:56:00.902665936 +0100
+@@ -1,6 +1,8 @@
+ XEN_ROOT = $(CURDIR)/../../..
+ include $(XEN_ROOT)/tools/libfsimage/Rules.mk
+ 
++CFLAGS += -DFSDIR="\"$(PRIVATE_LIBDIR)/fs\""
++
+ LDFLAGS-$(CONFIG_SunOS) = -Wl,-M -Wl,mapfile-SunOS
+ LDFLAGS-$(CONFIG_Linux) = -Wl,mapfile-GNU
+ LDFLAGS = $(LDFLAGS-y)
+@@ -19,9 +21,9 @@ all: $(LIB)
+ 
+ .PHONY: install
+ install: all
+-	$(INSTALL_DIR) $(DESTDIR)$(LIBDIR)
++	$(INSTALL_DIR) $(DESTDIR)$(PRIVATE_LIBDIR)
+ 	$(INSTALL_DIR) $(DESTDIR)$(INCLUDEDIR)
+-	$(INSTALL_PROG) libfsimage.so $(DESTDIR)$(LIBDIR)
++	$(INSTALL_PROG) libfsimage.so $(DESTDIR)$(PRIVATE_LIBDIR)
+ 	$(INSTALL_DATA) fsimage.h $(DESTDIR)$(INCLUDEDIR)
+ 	$(INSTALL_DATA) fsimage_plugin.h $(DESTDIR)$(INCLUDEDIR)
+ 	$(INSTALL_DATA) fsimage_grub.h $(DESTDIR)$(INCLUDEDIR)

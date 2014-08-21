@@ -1,0 +1,24 @@
+Description: qemu: Disable build of upstream qemu
+ The Xen make environment would try to get the upstream qemu code
+ as well when the qemu-dm directory is re-added. Right now I think
+ this should be provided by the qemu package. And also it would
+ currently break the build when trying to download code from a git
+ repo. So disable that part.
+Forwarded: not-needed
+Origin: vendor, created on merge
+Author: Stefan Bader <stefan.bader@canonical.com>
+
+--- a/tools/Makefile
++++ b/tools/Makefile
+@@ -23,9 +23,10 @@
+ # do not recurse in to a dir we are about to delete
+ ifneq "$(MAKECMDGOALS)" "distclean"
+ CONFIG_QEMU = $(CURDIR)/../qemu
++#QEMU_UPSTREAM_URL = $(CURDIR)/../qemu-xen
+ ifneq ($(wildcard $(CONFIG_QEMU)),)
+ SUBDIRS-$(CONFIG_QEMU_TRAD) += qemu-xen-traditional-dir
+-SUBDIRS-$(CONFIG_QEMU_XEN) += qemu-xen-dir
++#SUBDIRS-$(CONFIG_QEMU_XEN) += qemu-xen-dir
+ endif
+ endif
+ 

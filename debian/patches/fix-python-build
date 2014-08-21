@@ -1,0 +1,25 @@
+--- a/tools/python/Makefile
++++ b/tools/python/Makefile
+@@ -4,13 +4,8 @@
+ .PHONY: all
+ all: build
+ 
+-XENPATH = "xen/util/path.py"
+-
+-genpath-target = $(call buildmakevars2file,$(XENPATH))
+-$(eval $(genpath-target))
+-
+ .PHONY: build
+-build: genpath genwrap.py $(XEN_ROOT)/tools/libxl/libxl_types.idl \
++build: $(XEN_ROOT)/tools/libxl/libxl_types.idl \
+ 		$(XEN_ROOT)/tools/libxl/idl.py
+ 	PYTHONPATH=$(XEN_ROOT)/tools/libxl $(PYTHON) genwrap.py \
+ 		$(XEN_ROOT)/tools/libxl/libxl_types.idl \
+@@ -31,6 +26,6 @@
+ clean:
+ 	find . \( -name "*.py[ocd]" -o -name "*~" -o -name "_*.[hc]" \) -delete
+ 	rm -rf build/
+-	rm -f $(XENPATH) $(DEPS)
++	rm -f $(DEPS)
+ 
+ -include $(DEPS)
